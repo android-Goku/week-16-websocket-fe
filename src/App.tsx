@@ -5,23 +5,26 @@ function App() {
   const [socket, setSocket] = useState();
   const [chat, setChat] = useState([]);
   const [serverMsg, setServerMsg] = useState();
-  const inputRef = useRef();
+  
+  const inputRef = useRef<HTMLInputElement>(null);
 
   function sendMessage(){
     if(!socket){return}
-
+    //@ts-ignore
     const message = inputRef.current.value;
     const m = {
       value: message,
       id: "user"
     }
-
+    //@ts-ignore
     setChat([...chat, JSON.stringify(m)])
+        //@ts-ignore
     socket.send(message)
   }
 
   useEffect(() => {
     const ws = new WebSocket("ws://week-16-websocket-production.up.railway.app");
+        //@ts-ignore
     setSocket(ws)
 
     ws.onmessage = (ev) => {
@@ -32,12 +35,13 @@ function App() {
         value: ev.data,
         id: "server"
       }
-
+    //@ts-ignore
       setServerMsg(JSON.stringify(m));
     }
   },[])
 
   useEffect(() => {
+        //@ts-ignore
     setChat([...chat, serverMsg])
   },[serverMsg])
 
@@ -55,11 +59,12 @@ function App() {
 }
 
 export default App
-
+    //@ts-ignore
 function ChatBox ({chat}) {
   return <div>
       <ul>
-      {chat.map((msg, index) => (
+      
+      {chat.map((msg: string , index: number) => (
         <div key={index} >
           <Message msg={msg} />
         </div>
@@ -67,8 +72,8 @@ function ChatBox ({chat}) {
     </ul>
   </div>
 }
-
-function Message( {msg} ) {
+    //@ts-ignore
+function Message( { msg} ) {
   if(!msg){return}
   const message = JSON.parse(msg);
   return <div style={{display: "flex", background: message.id === "server" ? "yellow" : "pink" , justifyContent: message.id === "server" ? "flex-start" : "flex-end" }}>
