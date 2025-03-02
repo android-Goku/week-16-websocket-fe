@@ -21,7 +21,7 @@ function App() {
   }
 
   useEffect(() => {
-    const ws = new WebSocket("ws://localhost:8080");
+    const ws = new WebSocket("ws://week-16-websocket-production.up.railway.app");
     setSocket(ws)
 
     ws.onmessage = (ev) => {
