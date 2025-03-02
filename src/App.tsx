@@ -23,7 +23,7 @@ function App() {
   }
 
   useEffect(() => {
-    const ws = new WebSocket("ws://week-16-websocket-production.up.railway.app");
+    const ws = new WebSocket("wss://week-16-websocket-production.up.railway.app");
         //@ts-ignore
     setSocket(ws)
 
